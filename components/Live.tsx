@@ -156,7 +156,7 @@ const Live = () => {
       onPointerLeave={handlePointerLeave}
       onPointerDown={handlePointerDown}
       onPointerUp={handlerPointerUp}
-      className="h-[100vh] w-fill flex justify-center items-center text-center"
+      className="relative flex h-full w-full flex-1 items-center justify-center"
     >
       <h1 className="text-4xl font-bold">Hello, World!</h1>
 
