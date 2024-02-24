@@ -72,4 +72,4 @@ const Navbar = ({ activeElement, imageInputRef, handleImageUpload, handleActiveE
   );
 };
 
-export default memo(Navbar, (prevProps, nextProps) => prevProps.activeElement === nextProps.activeElement);
+export default memo(Navbar, (prevProps, nextProps) => prevProps?.activeElement === nextProps?.activeElement);
