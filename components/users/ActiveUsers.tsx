@@ -7,7 +7,7 @@ import { useMemo } from "react";
 const ActiveUsers = () => {
   const users = useOthers();
   const currentUser = useSelf();
-  const hasMoreUsers = users.length > 3;
+  const hasMoreUsers = users.length > 5;
 
   const memoizedUsers = useMemo(
     () => (
@@ -19,7 +19,7 @@ const ActiveUsers = () => {
               otherStyles="border-[3px] boarder-primary-green"
             />
           )}
-          {users.slice(0, 3).map(({ connectionId }) => {
+          {users.slice(0, 5).map(({ connectionId }) => {
             return (
               <Avatar
                 key={connectionId}
@@ -30,7 +30,7 @@ const ActiveUsers = () => {
           })}
 
           {hasMoreUsers && (
-            <div className={styles.more}>+{users.length - 3}</div>
+            <div className={styles.more}>+{users.length - 5}</div>
           )}
         </div>
       </main>
