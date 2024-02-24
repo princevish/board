@@ -18,50 +18,29 @@ type Props = {
 };
 
 const Live = ({ canvasRef, undo, redo }: Props) => {
-  /**
-   * useOthers returns the list of other users in the room.
-   *
-   * useOthers: https://liveblocks.io/docs/api-reference/liveblocks-react#useOthers
-   */
   const others = useOthers();
-
-  /**
-   * useMyPresence returns the presence of the current user in the room.
-   * It also returns a function to update the presence of the current user.
-   *
-   * useMyPresence: https://liveblocks.io/docs/api-reference/liveblocks-react#useMyPresence
-   */
   const [{ cursor }, updateMyPresence] = useMyPresence() as any;
-
-  /**
-   * useBroadcastEvent is used to broadcast an event to all the other users in the room.
-   *
-   * useBroadcastEvent: https://liveblocks.io/docs/api-reference/liveblocks-react#useBroadcastEvent
-   */
   const broadcast = useBroadcastEvent();
 
-  // store the reactions created on mouse click
+
   const [reactions, setReactions] = useState<Reaction[]>([]);
 
-  // track the state of the cursor (hidden, chat, reaction, reaction selector)
   const [cursorState, setCursorState] = useState<CursorState>({
     mode: CursorMode.Hidden,
   });
 
-  // set the reaction of the cursor
+
   const setReaction = useCallback((reaction: string) => {
     setCursorState({ mode: CursorMode.Reaction, reaction, isPressed: false });
   }, []);
 
-  // Remove reactions that are not visible anymore (every 1 sec)
   useInterval(() => {
     setReactions((reactions) => reactions.filter((reaction) => reaction.timestamp > Date.now() - 4000));
   }, 1000);
 
-  // Broadcast the reaction to other users (every 100ms)
   useInterval(() => {
     if (cursorState.mode === CursorMode.Reaction && cursorState.isPressed && cursor) {
-      // concat all the reactions created on mouse click
+      
       setReactions((reactions) =>
         reactions.concat([
           {
@@ -72,7 +51,7 @@ const Live = ({ canvasRef, undo, redo }: Props) => {
         ])
       );
 
-      // Broadcast the reaction to other users
+      
       broadcast({
         x: cursor.x,
         y: cursor.y,
